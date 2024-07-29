@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -39,10 +39,10 @@ const EquipmentPreference = () => {
     'pull up bar',
   ];
   const [selectedButtons, setSelectedButtons] = useState([]);
-  const handleButtonPress = (index) => {
-    setSelectedButtons((prevSelectedButtons) => {
+  const handleButtonPress = index => {
+    setSelectedButtons(prevSelectedButtons => {
       if (prevSelectedButtons.includes(index)) {
-        return prevSelectedButtons.filter((item) => item !== index);
+        return prevSelectedButtons.filter(item => item !== index);
       } else {
         return [...prevSelectedButtons, index];
       }
@@ -60,8 +60,7 @@ const EquipmentPreference = () => {
                 styles.button,
                 selectedButtons.includes(index) && styles.buttonSelected,
               ]}
-              onPress={() => handleButtonPress(index)}
-            >
+              onPress={() => handleButtonPress(index)}>
               <Text style={styles.buttonText}>{item}</Text>
             </TouchableOpacity>
           ))}
@@ -77,8 +76,7 @@ const EquipmentPreference = () => {
                 borderColor: rememberMe ? '#3191D7' : '#707070',
               },
             ]}
-            onPress={() => setRememberMe(!rememberMe)}
-          >
+            onPress={() => setRememberMe(!rememberMe)}>
             {rememberMe && (
               <MaterialIcons name="check" size={hp(2)} color="#3191D7" />
             )}
@@ -96,7 +94,7 @@ const styles = StyleSheet.create({
     //marginBottom: hp(15),
   },
   container: {
-    marginBottom: hp(23),
+    marginBottom: hp(20),
     marginHorizontal: wp(5),
     marginVertical: hp(1),
   },

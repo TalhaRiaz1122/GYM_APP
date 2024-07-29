@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import Svg, {
   G,
   Circle,
@@ -9,11 +9,11 @@ import Svg, {
   Use,
   Image,
   SvgProps,
-} from "react-native-svg";
-/* SVGR has dropped some elements not supported by react-native-svg: filter */
+} from 'react-native-svg';
+
 const HalfButton = (props: SvgProps) => (
   <Svg width={107} height={107} viewBox="0 0 108 108" fill="none" {...props}>
-    <G filter="url(#filter0_d_25_9118)">
+    <G>
       <Circle cx={54} cy={54} r={39} fill="#3191D7" />
     </G>
     <Path
@@ -22,14 +22,14 @@ const HalfButton = (props: SvgProps) => (
       strokeWidth={2.5}
       strokeLinecap="round"
     />
-    <G opacity={0.1} filter="url(#filter1_d_25_9118)">
+    <G opacity={0.1}>
       <Circle
         cx={54}
         cy={54}
         r={52}
         stroke="#3191D7"
         strokeWidth={2.5}
-        shape-Rendering="crispEdges"
+        shapeRendering="crispEdges"
       />
     </G>
     <Rect x={0} y={0} width={108} height={108} fill="url(#pattern0_25_9118)" />
@@ -38,8 +38,7 @@ const HalfButton = (props: SvgProps) => (
         id="pattern0_25_9118"
         patternContentUnits="objectBoundingBox"
         width={1}
-        height={1}
-      >
+        height={1}>
         <Use xlinkHref="#image0_25_9118" transform="scale(0.00990099)" />
       </Pattern>
       <Image
@@ -51,4 +50,5 @@ const HalfButton = (props: SvgProps) => (
     </Defs>
   </Svg>
 );
+
 export default HalfButton;

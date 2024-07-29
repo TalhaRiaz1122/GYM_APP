@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  Text,
-  StatusBar,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Button, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import BottomSheetComponent from '../components/BottomSheetComponent';
+import {BlurView} from '@react-native-community/blur';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -17,25 +13,26 @@ import Question from '../asserts/svgs/Question';
 import DropDownIcon from '../asserts/svgs/DropDownIcon';
 import Tick from '../asserts/svgs/Tick';
 import CustomNextButton from '../components/CustomNextButton';
-import BottomSheetComponent from '../components/BottomSheetComponent';
+import {Platform} from 'react-native';
+
 const Subscription1 = () => {
+  const [isSheetVisible, setIsSheetVisible] = useState(false);
   const navigation = useNavigation();
   const [selectedRadio, setSelectedRadio] = useState(2);
-  const [isSheetVisible, setIsSheetVisible] = useState(false);
-
-  const handleOpenSheet = () => {
-    setIsSheetVisible(true);
-  };
-
-  const handleCloseSheet = () => {
-    setIsSheetVisible(false);
-  };
 
   return (
-    <SafeAreaView style={styles.mainContainer} edges={['top']}>
+    <View style={styles.container}>
+      {isSheetVisible && (
+        <BlurView style={styles.absolute} blurType="light" blurAmount={0.5} />
+      )}
       <View style={{position: 'relative'}}>
         <HeaderText
-          style={{marginVertical: hp(4)}}
+          style={{
+            marginVertical: Platform.OS == 'android' ? hp(2) : hp(4),
+            marginBottom: Platform.OS == 'android' ? hp(2) : hp(6),
+            top: Platform.OS == 'android' ? hp(0) : hp(4),
+            zIndex: Platform.OS == 'android' ? -1 : 1,
+          }}
           logo={
             <Text style={{color: 'white', fontSize: wp(5)}}>
               Class Membership
@@ -48,6 +45,7 @@ const Subscription1 = () => {
           style={{
             marginHorizontal: wp(5),
             marginVertical: hp(2),
+            zIndex: Platform.OS == 'android' ? -1 : 1,
           }}>
           <View
             style={{
@@ -194,6 +192,7 @@ const Subscription1 = () => {
                     <Text
                       style={{
                         color: 'white',
+                        fontSize: wp(4),
                       }}>
                       2 personal feedback discussions per month
                     </Text>
@@ -202,7 +201,6 @@ const Subscription1 = () => {
               </View>
             </View>
           </View>
-
           <TouchableOpacity
             onPress={() => setSelectedRadio(2)}
             style={{
@@ -261,29 +259,27 @@ const Subscription1 = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{marginTop: hp(12)}}>
-          <CustomNextButton
-            title={'Purchse'}
-            style={{marginHorizontal: wp(5)}}
-            onPress={handleOpenSheet}
-          />
-        </View>
       </View>
-      {/* <StripeBottomSheet
-        isVisible={isSheetVisible}
-        onClose={handleCloseSheet}
-        setIsSheetVisible={setIsSheetVisible}
-      /> */}
+      <View
+        style={{
+          marginTop: Platform.OS == 'android' ? hp(13) : hp(10),
+        }}>
+        <CustomNextButton
+          title={'Purchase'}
+          style={{marginHorizontal: wp(5)}}
+          onPress={() => setIsSheetVisible(true)}
+        />
+      </View>
       <BottomSheetComponent
         isVisible={isSheetVisible}
-        onClose={handleCloseSheet}
-        setIsSheetVisible={setIsSheetVisible}
+        setIsVisible={setIsSheetVisible}
       />
-    </SafeAreaView>
+    </View>
   );
 };
+
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
     backgroundColor: '#051A30',
   },
@@ -291,12 +287,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    // bottom: hp(60),
     right: 0,
-    backgroundColor: 'red',
-
+    //backgroundColor: 'red',
     height: '30%',
-    // zIndex: 1,
+    zIndex: Platform.OS == 'android' ? 0 : 1,
   },
 });
 

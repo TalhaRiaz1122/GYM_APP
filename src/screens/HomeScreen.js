@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -24,7 +24,7 @@ import DotMenu from '../asserts/svgs/DotMenu';
 import FirstTrainer from '../asserts/svgs/FirstTrainer';
 import SecondTrainer from '../asserts/svgs/SecondTrainer';
 import ThirdTrainer from '../asserts/svgs/ThirdTrainer';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen = () => {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -34,24 +34,24 @@ const HomeScreen = () => {
     {
       id: '1',
       text: 'Workouts',
-      icon: <JymIcon style={{ top: wp(2), marginLeft: wp(2) }} />,
+      icon: <JymIcon style={{top: wp(2), marginLeft: wp(2)}} />,
     },
     {
       id: '2',
       text: 'Meals',
-      icon: <MealIcon style={{ top: wp(2), marginLeft: wp(2) }} />,
+      icon: <MealIcon style={{top: wp(2), marginLeft: wp(2)}} />,
     },
     {
       id: '3',
       text: 'Feed',
-      icon: <FeedIcon style={{ top: wp(2), marginLeft: wp(2) }} />,
+      icon: <FeedIcon style={{top: wp(2), marginLeft: wp(2)}} />,
     },
     {
       id: '4',
       text: 'Calendar',
       icon: (
         <Calender
-          style={{ top: wp(2), marginLeft: wp(2) }}
+          style={{top: wp(2), marginLeft: wp(2)}}
           width={24}
           height={24}
         />
@@ -64,7 +64,7 @@ const HomeScreen = () => {
       id: '1',
       icon: (
         <FirstTrainer
-          style={{ backgroundColor: '#9181F2', borderRadius: wp(2) }}
+          style={{backgroundColor: '#9181F2', borderRadius: wp(2)}}
         />
       ),
       title: 'Kelli Hall',
@@ -75,7 +75,7 @@ const HomeScreen = () => {
       id: '2',
       icon: (
         <SecondTrainer
-          style={{ backgroundColor: '#BFE1FF', borderRadius: wp(2) }}
+          style={{backgroundColor: '#BFE1FF', borderRadius: wp(2)}}
         />
       ),
       title: 'Sandy Barnett',
@@ -85,7 +85,7 @@ const HomeScreen = () => {
       id: '3',
       icon: (
         <ThirdTrainer
-          style={{ backgroundColor: '#3BADFF', borderRadius: wp(2) }}
+          style={{backgroundColor: '#3BADFF', borderRadius: wp(2)}}
         />
       ),
       title: 'Trainer 3',
@@ -93,11 +93,11 @@ const HomeScreen = () => {
     },
   ];
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <TouchableOpacity
       style={[
         styles.card,
-        { backgroundColor: selectedCard === item.id ? '#3191D7' : '#002D4E' },
+        {backgroundColor: selectedCard === item.id ? '#3191D7' : '#002D4E'},
       ]}
       onPress={() => {
         setSelectedCard(item.id);
@@ -117,18 +117,15 @@ const HomeScreen = () => {
           default:
             console.log('Unknown item id');
         }
-      }}
-    >
+      }}>
       {item.icon}
       <Text style={styles.cardText}>{item.text}</Text>
     </TouchableOpacity>
   );
 
-  const renderTrainerItem = ({ item }) => (
+  const renderTrainerItem = ({item}) => (
     <View style={styles.trainerCard}>
-      <View style={{ alignItems: 'center', marginTop: wp(1) }}>
-        {item.icon}
-      </View>
+      <View style={{alignItems: 'center', marginTop: wp(1)}}>{item.icon}</View>
       <View style={styles.trainerCardContent}>
         <View>
           <Text style={styles.trainerTitle}>{item.title}</Text>
@@ -138,8 +135,7 @@ const HomeScreen = () => {
           style={styles.viewProfileButton}
           onPress={() => {
             navigation.navigate('TrainerProfileScreen');
-          }}
-        >
+          }}>
           <Text style={styles.viewProfileText}>View Profile</Text>
         </TouchableOpacity>
       </View>
@@ -152,10 +148,8 @@ const HomeScreen = () => {
       <View style={styles.Header}>
         <View style={styles.headerTextView}>
           <View style={styles.headerText}>
-            <Text style={{ color: '#7B7B7C' }}>Hello,</Text>
-            <Text
-              style={{ color: 'white', fontSize: wp(5), fontWeight: 'bold' }}
-            >
+            <Text style={{color: '#7B7B7C'}}>Hello,</Text>
+            <Text style={{color: 'white', fontSize: wp(5), fontWeight: 'bold'}}>
               Nathan T.
             </Text>
           </View>
@@ -171,12 +165,11 @@ const HomeScreen = () => {
               alignSelf: 'center',
               alignItems: 'center',
               justifyContent: 'center',
-              marginTop: wp(1.5),
+              marginTop: Platform.OS == 'android' ? hp(1) : hp(0.4),
               marginHorizontal: wp(2),
               zIndex: 1,
-            }}
-          >
-            <SearchIcon />
+            }}>
+            <SearchIcon width={wp(10)} height={hp(5)} />
           </TouchableOpacity>
           <TextInput
             style={styles.input}
@@ -189,7 +182,7 @@ const HomeScreen = () => {
         <FlatList
           data={data}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           numColumns={2}
           columnWrapperStyle={styles.row}
         />
@@ -197,34 +190,31 @@ const HomeScreen = () => {
       <View
         style={{
           marginHorizontal: wp(5),
-        }}
-      >
+        }}>
         <View
           style={{
             marginVertical: hp(1),
             flexDirection: 'row',
-          }}
-        >
+          }}>
           <Text
             style={{
               color: 'white',
               fontSize: wp(4),
               flex: 1,
               fontWeight: 'bold',
-            }}
-          >
+            }}>
             My Trainers
           </Text>
           <TouchableOpacity>
-            <DotMenu style={{ alignContent: 'flex-end', marginTop: wp(3) }} />
+            <DotMenu style={{alignContent: 'flex-end', marginTop: wp(3)}} />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ marginLeft: wp(5) }}>
+      <View style={{marginLeft: wp(5)}}>
         <FlatList
           data={trainerData}
           renderItem={renderTrainerItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.horizontalFlatList}
@@ -241,8 +231,9 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#002D4E',
     paddingHorizontal: wp(5),
-    paddingVertical: wp(3),
+    paddingVertical: wp(4),
     borderRadius: hp(5),
+
     color: 'white',
   },
   Header: {

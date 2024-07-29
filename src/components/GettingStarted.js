@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,8 +14,8 @@ import {
 import RadioButtonList from './RadioButtonList';
 const GettingStarted = () => {
   const radioData = [
-    { title: 'I need help looking for Trainer/GYM' },
-    { title: "I don't need a Trainer/GYM" },
+    {title: 'I need help looking for Trainer/GYM'},
+    {title: "I don't need a Trainer/GYM"},
   ];
   return (
     <View style={styles.whole}>
@@ -25,7 +25,7 @@ const GettingStarted = () => {
 };
 const styles = StyleSheet.create({
   whole: {
-    marginBottom: hp(48),
+    marginBottom: hp(43),
   },
 });
 

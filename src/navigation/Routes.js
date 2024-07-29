@@ -1,5 +1,5 @@
 //ximport 'react-native-gesture-handler';
-//import 'react-native-reanimated';
+import 'react-native-reanimated';
 import React from 'react';
 import {Text, View} from 'react-native';
 

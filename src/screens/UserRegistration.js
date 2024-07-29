@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -13,7 +13,7 @@ import {
 } from 'react-native-responsive-screen';
 import Logo from '../asserts/svgs/Logo';
 import SideMenu from '../asserts/svgs/SideMenu';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
 import HeaderText from '../components/HeaderText';
 import Calender from '../asserts/svgs/Calender';
@@ -23,9 +23,12 @@ import OthersIcon from '../asserts/svgs/OthersIcon';
 import LocationIcon from '../asserts/svgs/LocationIcon';
 import CustomNextButton from '../components/CustomNextButton';
 import DropDownIcon from '../asserts/svgs/DropDownIcon';
+import {Platform} from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 
 const UserRegistration = () => {
   const navigation = useNavigation();
+  const [selectedCountry, setSelectedCountry] = useState('US');
   const [selectedCard, setSelectedCard] = useState('Male');
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -33,8 +36,8 @@ const UserRegistration = () => {
         logo={<Logo width={wp(20)} height={hp(10)} />}
         EndIcon={<SideMenu />}
       />
-      <View style={{ alignItems: 'center', marginHorizontal: wp(5) }}>
-        <Text style={{ fontSize: wp(3), color: 'white' }}>
+      <View style={{alignItems: 'center', marginHorizontal: wp(5)}}>
+        <Text style={{fontSize: wp(3), color: 'white'}}>
           Let us know more about yourself
         </Text>
 
@@ -44,19 +47,17 @@ const UserRegistration = () => {
               fontSize: wp(4),
               color: 'white',
               marginVertical: wp(2),
-            }}
-          >
+            }}>
             Date of Birth:
           </Text>
           <TouchableOpacity
             style={{
               position: 'absolute',
               right: wp(0),
-              top: wp(13),
+              top: Platform.OS == 'android' ? hp(6.5) : hp(5.5),
               marginHorizontal: wp(4),
               zIndex: 1,
-            }}
-          >
+            }}>
             <Calender />
           </TouchableOpacity>
           <TextInput
@@ -69,12 +70,11 @@ const UserRegistration = () => {
           style={{
             flexDirection: 'row',
             marginVertical: hp(1),
-          }}
-        >
-          <Text style={{ flex: 1, color: 'white', fontSize: wp(4) }}>
+          }}>
+          <Text style={{flex: 1, color: 'white', fontSize: wp(4)}}>
             Select Gender:
           </Text>
-          <Text style={{ flex: 1, textAlign: 'right', color: '#7B7B7C' }}>
+          <Text style={{flex: 1, textAlign: 'right', color: '#7B7B7C'}}>
             Optional
           </Text>
         </View>
@@ -85,9 +85,8 @@ const UserRegistration = () => {
               styles.cardButton,
               selectedCard === 'Male' && styles.selectedCardButton,
             ]}
-            onPress={() => setSelectedCard('Male')}
-          >
-            <MaleIcon style={{ marginBottom: hp(1) }} />
+            onPress={() => setSelectedCard('Male')}>
+            <MaleIcon style={{marginBottom: hp(1)}} />
           </CustomButton>
           <CustomButton
             title="Female"
@@ -98,9 +97,8 @@ const UserRegistration = () => {
               styles.cardButton,
               selectedCard === 'Female' && styles.selectedCardButton,
             ]}
-            onPress={() => setSelectedCard('Female')}
-          >
-            <FemaleIcon style={{ marginBottom: hp(1) }} />
+            onPress={() => setSelectedCard('Female')}>
+            <FemaleIcon style={{marginBottom: hp(1)}} />
           </CustomButton>
           <CustomButton
             title="Others"
@@ -111,9 +109,8 @@ const UserRegistration = () => {
               styles.cardButton,
               selectedCard === 'Others' && styles.selectedCardButton,
             ]}
-            onPress={() => setSelectedCard('Others')}
-          >
-            <OthersIcon style={{ marginBottom: hp(1) }} />
+            onPress={() => setSelectedCard('Others')}>
+            <OthersIcon style={{marginBottom: hp(1)}} />
           </CustomButton>
         </View>
 
@@ -122,15 +119,15 @@ const UserRegistration = () => {
             style={{
               flexDirection: 'row',
               marginVertical: hp(1),
-            }}
-          >
-            <Text style={{ flex: 1, color: 'white', fontSize: wp(4) }}>
+            }}>
+            <Text style={{flex: 1, color: 'white', fontSize: wp(4)}}>
               Your Weight:
             </Text>
-            <Text style={{ flex: 1, textAlign: 'right', color: '#7B7B7C' }}>
+            <Text style={{flex: 1, textAlign: 'right', color: '#7B7B7C'}}>
               Optional
             </Text>
           </View>
+
           <TouchableOpacity
             style={{
               position: 'absolute',
@@ -141,15 +138,13 @@ const UserRegistration = () => {
               borderLeftWidth: 2,
               borderColor: '#1B3654',
               flexDirection: 'row',
-            }}
-          >
+            }}>
             <Text
               style={{
                 marginHorizontal: wp(2),
                 color: 'white',
                 fontSize: wp(3),
-              }}
-            >
+              }}>
               KG
             </Text>
             <DropDownIcon width={wp(3)} />
@@ -165,12 +160,11 @@ const UserRegistration = () => {
             style={{
               flexDirection: 'row',
               marginVertical: hp(1),
-            }}
-          >
-            <Text style={{ flex: 1, color: 'white', fontSize: wp(4) }}>
+            }}>
+            <Text style={{flex: 1, color: 'white', fontSize: wp(4)}}>
               Your Height:
             </Text>
-            <Text style={{ flex: 1, textAlign: 'right', color: '#7B7B7C' }}>
+            <Text style={{flex: 1, textAlign: 'right', color: '#7B7B7C'}}>
               Optional
             </Text>
           </View>
@@ -184,15 +178,13 @@ const UserRegistration = () => {
               borderLeftWidth: 2,
               borderColor: '#1B3654',
               flexDirection: 'row',
-            }}
-          >
+            }}>
             <Text
               style={{
                 fontSize: wp(3),
                 marginHorizontal: wp(2),
                 color: 'white',
-              }}
-            >
+              }}>
               Feet
             </Text>
             <DropDownIcon width={wp(3)} />
@@ -208,12 +200,11 @@ const UserRegistration = () => {
             style={{
               flexDirection: 'row',
               marginVertical: hp(1),
-            }}
-          >
-            <Text style={{ flex: 1, color: 'white', fontSize: wp(4) }}>
+            }}>
+            <Text style={{flex: 1, color: 'white', fontSize: wp(4)}}>
               Your Address:
             </Text>
-            <Text style={{ flex: 1, textAlign: 'right', color: '#7B7B7C' }}>
+            <Text style={{flex: 1, textAlign: 'right', color: '#7B7B7C'}}>
               Optional
             </Text>
           </View>
@@ -221,12 +212,11 @@ const UserRegistration = () => {
             style={{
               position: 'absolute',
               right: wp(0),
-              top: wp(13),
+              top: Platform.OS == 'android' ? hp(6) : hp(5.5),
               marginHorizontal: wp(4),
               zIndex: 1,
-            }}
-          >
-            <LocationIcon />
+            }}>
+            <LocationIcon width={wp(3.5)} />
           </TouchableOpacity>
           <TextInput
             style={styles.input}
@@ -235,10 +225,10 @@ const UserRegistration = () => {
           />
         </View>
       </View>
-      <View style={{ marginTop: hp(12) }}>
+      <View style={{marginTop: hp(10)}}>
         <CustomNextButton
           title={'Continue'}
-          style={{ marginHorizontal: wp(5) }}
+          style={{marginHorizontal: wp(5)}}
           onPress={() => {
             navigation.navigate('Goals');
           }}
@@ -259,7 +249,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#092441',
     paddingHorizontal: wp(5),
-    paddingVertical: hp(1),
+    paddingVertical: Platform.OS == 'android' ? hp(1) : hp(1.5),
     borderRadius: wp(2),
     color: 'white',
   },
@@ -277,6 +267,9 @@ const styles = StyleSheet.create({
   },
   selectedCardButton: {
     backgroundColor: '#3191D7', // Change to desired selected color
+  },
+  pickerContainer: {
+    //marginVertical: hp(1),
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,7 +14,7 @@ import {
 import RadioButtonList from './RadioButtonList';
 
 const WorkoutPrefrence = () => {
-  const radioData = [{ title: 'Intense' }, { title: 'Slow Burn' }];
+  const radioData = [{title: 'Intense'}, {title: 'Slow Burn'}];
   const focusData = [
     'Abductors',
     'Neck',
@@ -35,10 +35,10 @@ const WorkoutPrefrence = () => {
 
   const [selectedButtons, setSelectedButtons] = useState([]);
 
-  const handleButtonPress = (index) => {
-    setSelectedButtons((prevSelectedButtons) => {
+  const handleButtonPress = index => {
+    setSelectedButtons(prevSelectedButtons => {
       if (prevSelectedButtons.includes(index)) {
-        return prevSelectedButtons.filter((item) => item !== index);
+        return prevSelectedButtons.filter(item => item !== index);
       } else {
         return [...prevSelectedButtons, index];
       }
@@ -48,11 +48,11 @@ const WorkoutPrefrence = () => {
   return (
     <View style={styles.whole}>
       <RadioButtonList
-        styleContainer={{ marginHorizontal: wp(4) }}
+        styleContainer={{marginHorizontal: wp(4)}}
         topic="Workout Preference:"
-        topicStyle={{ marginHorizontal: wp(1) }}
+        topicStyle={{marginHorizontal: wp(1)}}
         data={radioData}
-        style={{ flexDirection: 'row' }}
+        style={{flexDirection: 'row'}}
         styleradioButtonContainer={{
           flex: 1,
           marginLeft: wp(1),
@@ -71,8 +71,7 @@ const WorkoutPrefrence = () => {
                 styles.button,
                 selectedButtons.includes(index) && styles.buttonSelected,
               ]}
-              onPress={() => handleButtonPress(index)}
-            >
+              onPress={() => handleButtonPress(index)}>
               <Text style={styles.buttonText}>{item}</Text>
             </TouchableOpacity>
           ))}
@@ -84,7 +83,7 @@ const WorkoutPrefrence = () => {
 
 const styles = StyleSheet.create({
   whole: {
-    marginBottom: hp(23),
+    marginBottom: hp(20),
   },
   container: {
     marginHorizontal: wp(5),

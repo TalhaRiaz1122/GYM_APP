@@ -1,24 +1,15 @@
-//import 'react-native-reanimated';
-//import 'react-native-gesture-handler';
-//import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import React, {useMemo, useRef, useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {
   View,
   Text,
+  Button,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
 import BottomSheet from '@gorhom/bottom-sheet';
-import Animated, {useSharedValue} from 'react-native-reanimated';
-import {Picker} from '@react-native-picker/picker';
-import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
-// import { SP_KEY } from '@env';
+import RNPickerSelect from 'react-native-picker-select';
 import CustomButton from '../components/CustomButton';
 import Apple from '../asserts/svgs/Apple';
 import OrPayUsing from '../asserts/svgs/OrPayUsing';
@@ -26,93 +17,55 @@ import MasterCard from '../asserts/svgs/MasterCard';
 import Visa from '../asserts/svgs/Visa';
 import Stripe from '../asserts/svgs/Stripe';
 import Card from '../asserts/svgs/Card';
-import {BlurView} from '@react-native-community/blur';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
+import CalendarCurrentIcon from '../asserts/svgs/CalendarCurrentIcon';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const BottomSheetComponent = ({
-  isVisible,
-  onClose,
-  setIsSheetVisible,
-  backgroundColor,
-}) => {
+const BottomSheetComponent = ({isVisible, setIsVisible}) => {
   const navigation = useNavigation();
+  const [selectedCountry, setSelectedCountry] = useState('US');
+  const [selectedCard, setSelectedCard] = useState('Master Card');
   const bottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => [hp('67')], []); // Open to 67% of screen height
-  const index = useSharedValue(-1); // Initial index is -1 (closed)
-  const [selectedCountry, setSelectedCountry] = useState('United States');
-  const [selectedCard, setSelectedCard] = useState('Master Card'); // State to track selected card option
-  // const stripe = useStripe();
+  const snapPoints = useMemo(() => ['70%'], []);
+  const handleSheetChanges = useCallback(index => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
-  const handleSheetChanges = useCallback(
-    newIndex => {
-      console.log('Index inside handle sheet', newIndex);
-
-      if (newIndex == 0) {
-        setIsSheetVisible(true);
-      } else {
-        setIsSheetVisible(false);
-      }
-    },
-    [onClose, index],
-  );
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (isVisible) {
-      bottomSheetRef.current?.snapToIndex(0); // Open the sheet
+      bottomSheetRef.current?.snapToIndex(0);
     } else {
-      bottomSheetRef.current?.close(); // Close the sheet
+      bottomSheetRef.current?.close();
     }
   }, [isVisible]);
 
-  const handlePayment = async () => {
-    // const {error, paymentIntent} = await stripe.confirmPayment({
-    //   paymentIntentClientSecret: 'your_payment_intent_client_secret', // Fetch this from your backend
-    //   paymentMethodType: 'Card',
-    //   paymentMethodData: {
-    //     billingDetails: {
-    //       name: 'Test User',
-    //     },
-    //   },
-    // });
-    // if (error) {
-    //   console.log('Payment confirmation error', error);
-    //   alert('Payment failed');
-    // } else {
-    //   alert('Payment successful');
-    // }
-  };
-  //console.log(SP_KEY);
   return (
-    // <View>
-    <StripeProvider publishableKey="pk_test_51PfJxpRo5Ols8TLixC5dUr7cAWRQihQ89dnwyWUXJFJwnWLi4zvjtmxbMCGltRBLXX8SGb6JrCJBVwBz0I1l2jkk00kE4ZfBCD">
-      {isVisible && (
-        <BlurView
-          style={styles.absolute}
-          blurType="mediumlight"
-          blurAmount={1}
+    <BottomSheet
+      ref={bottomSheetRef}
+      index={-1}
+      snapPoints={snapPoints}
+      onChange={handleSheetChanges}
+      backgroundStyle={{backgroundColor: '#051A30'}}
+      handleComponent={() => (
+        <View
+          style={{
+            backgroundColor: 'white',
+            width: wp(18),
+            height: hp(0.5),
+            marginTop: hp(2),
+            opacity: 0.3,
+            alignSelf: 'center',
+            borderRadius: wp(2),
+          }}
         />
       )}
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={index.value}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-        style={[styles.bottomSheet, {backgroundColor: backgroundColor}]}
-        backgroundStyle={{backgroundColor: '#051A30'}}
-        enablePanDownToClose
-        handleComponent={() => (
-          <View
-            style={{
-              backgroundColor: 'white',
-              width: wp(18),
-              height: hp(0.5),
-              marginTop: hp(2),
-              opacity: 0.3,
-              alignSelf: 'center',
-              borderRadius: widthPercentageToDP(2),
-            }}
-          />
-        )}>
+      enablePanDownToClose
+      onClose={() => setIsVisible(false)}>
+      <SafeAreaView style={styles.contentContainer}>
         <View style={styles.sheetContent}>
           <View style={styles.paymentContainer}>
             <CustomButton
@@ -184,7 +137,7 @@ const BottomSheetComponent = ({
                 style={{
                   position: 'absolute',
                   right: wp(0),
-                  top: wp(14),
+                  top: Platform.OS == 'android' ? hp(7) : hp(5.5),
                   marginHorizontal: wp(4),
                   zIndex: 1,
                 }}
@@ -226,22 +179,51 @@ const BottomSheetComponent = ({
                 }}>
                 Card Information
               </Text>
-              <View style={styles.picker}>
-                <Picker
-                  dropdownIconColor="white"
-                  selectedValue={selectedCountry}
-                  onValueChange={(itemValue, itemIndex) => {
-                    setSelectedCountry(itemValue);
+            </View>
+            <View
+              style={{
+                width: '100%',
+              }}>
+              <View style={styles.pickerContainer}>
+                <RNPickerSelect
+                  onValueChange={value => setSelectedCountry(value)}
+                  value={selectedCountry}
+                  items={[
+                    {label: 'United States', value: 'US'},
+                    {label: 'Pakistan', value: 'PK'},
+                  ]}
+                  style={{
+                    inputIOS: {
+                      backgroundColor: '#092441',
+                      color: 'white',
+                      padding: wp(3),
+                      borderTopLeftRadius: wp(2),
+                      borderTopRightRadius: wp(2),
+                    },
+                    inputAndroid: {
+                      color: 'white',
+                      padding: wp(3),
+                    },
+                    viewContainer: {
+                      borderTopLeftRadius: wp(2),
+                      borderTopRightRadius: wp(2),
+                      backgroundColor: '#092441',
+                    },
+
+                    placeholder: {
+                      color: 'white',
+                    },
                   }}
-                  style={{color: 'white'}}>
-                  <Picker.Item label="United States" value="US" />
-                  <Picker.Item label="Pakistan" value="PK" />
-                </Picker>
+                  placeholder={{label: 'Select a country...', value: null}}
+                  pickerProps={{dropdownIconColor: 'white'}}
+                />
               </View>
               <TextInput
                 style={{
                   backgroundColor: '#092441',
-                  padding: 10,
+                  padding: wp(3),
+                  borderTopWidth: 1,
+                  borderTopColor: '#5E5E5E',
                   borderBottomLeftRadius: wp(2),
                   borderBottomRightRadius: wp(2),
                 }}
@@ -252,47 +234,31 @@ const BottomSheetComponent = ({
 
             <CustomButton
               title="Pay $80.00"
-              style={{width: '100%', marginVertical: hp(2)}}
+              style={{
+                width: '100%',
+                marginVertical: Platform.OS == 'android' ? hp(2) : hp(5),
+              }}
               onPress={() => {
                 navigation.navigate('UserRegistration');
-                setIsSheetVisible(false);
+                setIsVisible(false);
               }}
             />
           </View>
         </View>
-      </BottomSheet>
-      {/* </View> */}
-    </StripeProvider>
+      </SafeAreaView>
+    </BottomSheet>
   );
 };
 
 const styles = StyleSheet.create({
-  bottomSheet: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    // zIndex: 10,
+  contentContainer: {
+    flex: 1,
   },
   sheetContent: {
-    padding: 16,
-    paddingBottom: 24,
+    padding: wp(4),
   },
   paymentContainer: {
     alignItems: 'center',
-  },
-  paymentButton: {
-    backgroundColor: '#000',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  paymentButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  orText: {
-    color: 'white',
-    marginVertical: 10,
   },
   cardOptions: {
     flexDirection: 'row',
@@ -306,7 +272,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#012743',
   },
   selectedCardButton: {
-    backgroundColor: '#3191D7', // Change to desired selected color
+    backgroundColor: '#3191D7',
   },
   cardInformation: {
     marginVertical: hp(1),
@@ -314,12 +280,11 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#092441',
-    padding: 10,
+    padding: wp(3),
     borderTopLeftRadius: wp(2),
     borderTopRightRadius: wp(2),
     borderBottomWidth: 1,
     borderColor: '#5E5E5E',
-
     color: 'white',
   },
   inputRow: {
@@ -329,34 +294,19 @@ const styles = StyleSheet.create({
   inputHalf: {
     backgroundColor: '#092441',
     padding: 10,
-
     color: 'white',
     width: '50%',
   },
-  picker: {
-    backgroundColor: '#092441',
-    color: 'white',
+  pickerContainer: {
+    //marginVertical: hp(1),
     borderTopLeftRadius: wp(2),
     borderTopRightRadius: wp(2),
-    borderBottomWidth: 1,
-    borderColor: '#5E5E5E',
   },
-  payButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 5,
-  },
-  payButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  absolute: {
+  iconContainer: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '35%',
+    top: hp(3),
+    right: wp(3),
+    transform: [{translateY: -hp(1)}], // Center the icon vertically
   },
 });
 

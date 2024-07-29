@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -21,7 +21,7 @@ import Or from '../asserts/svgs/Or';
 import CustomTextInput from '../components/CustomTextInput';
 import Email from '../asserts/svgs/Email';
 import Password from '../asserts/svgs/Password';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Eye from '../asserts/svgs/Eye';
 import EyeOff from '../asserts/svgs/EyeOff';
 import CustomButton from '../components/CustomButton';
@@ -45,17 +45,17 @@ const LoginScreen = () => {
             </SocialButton>
           </View>
           <View style={styles.icon}>
-            <SocialButton style={{ backgroundColor: 'white' }}>
+            <SocialButton style={{backgroundColor: 'white'}}>
               <Google width={wp(8)} height={hp(4)} />
             </SocialButton>
           </View>
           <View style={styles.icon}>
-            <SocialButton style={{ backgroundColor: 'black' }}>
+            <SocialButton style={{backgroundColor: 'black'}}>
               <Apple width={wp(8)} height={hp(4)} />
             </SocialButton>
           </View>
         </View>
-        <View style={{ alignItems: 'center', marginVertical: hp(1) }}>
+        <View style={{alignItems: 'center', marginVertical: hp(1)}}>
           <Or fill="#051A30" />
         </View>
         <View>
@@ -64,11 +64,11 @@ const LoginScreen = () => {
             placeholder={'Password'}
             Icon={<Password />}
             Eye={<Eye />}
-            EyeOff={<EyeOff style={{ top: hp(-0.5) }} />}
+            EyeOff={<EyeOff style={{top: hp(-0.5)}} />}
             isPassword={true}
           />
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{flexDirection: 'row'}}>
           <View style={styles.checkboxContainer}>
             <TouchableOpacity
               style={[
@@ -78,8 +78,7 @@ const LoginScreen = () => {
                   borderColor: rememberMe ? '#3191D7' : '#707070',
                 },
               ]}
-              onPress={() => setRememberMe(!rememberMe)}
-            >
+              onPress={() => setRememberMe(!rememberMe)}>
               {rememberMe && (
                 <MaterialIcons name="check" size={hp(2)} color="#3191D7" />
               )}
@@ -94,8 +93,7 @@ const LoginScreen = () => {
                   color: '#3191D7',
                   fontSize: wp(4),
                   textAlign: 'right',
-                }}
-              >
+                }}>
                 Forgotten Password?
               </Text>
             </TouchableOpacity>
@@ -113,19 +111,15 @@ const LoginScreen = () => {
               flexDirection: 'row',
               alignSelf: 'center',
               marginTop: hp(6),
-            }}
-          >
-            <Text style={{ color: 'white', fontSize: wp(4) }}>
+            }}>
+            <Text style={{color: 'white', fontSize: wp(4)}}>
               Don't have an account?
             </Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('SignUpScreen');
-              }}
-            >
-              <Text style={{ color: '#3191D7', fontSize: wp(4) }}>
-                SIGN UP!
-              </Text>
+              }}>
+              <Text style={{color: '#3191D7', fontSize: wp(4)}}>SIGN UP!</Text>
             </TouchableOpacity>
           </View>
         </View>

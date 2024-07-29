@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextInput, StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -24,18 +24,17 @@ const CustomTextInput = ({
       <View
         style={[
           styles.iconContainer,
-          { backgroundColor: isFocused ? '#0652DD' : '#092441' },
-        ]}
-      >
+          {backgroundColor: isFocused ? '#0652DD' : '#092441'},
+        ]}>
         <TouchableOpacity>{Icon}</TouchableOpacity>
       </View>
-      <View style={{ flex: 8 }}>
+      <View style={{flex: 8}}>
         <TextInput
           placeholderTextColor="white"
           style={[
             styles.input,
             inputStyle,
-            { borderColor: isFocused ? '#0652DD' : '#092441' },
+            {borderColor: isFocused ? '#0652DD' : '#092441'},
           ]}
           placeholder={placeholder}
           value={value}
@@ -46,9 +45,8 @@ const CustomTextInput = ({
         />
         {isPassword ? (
           <TouchableOpacity
-            style={{ position: 'absolute', right: wp(5), top: hp(2) }}
-            onPress={() => setIsVisible(!isVisible)}
-          >
+            style={{position: 'absolute', right: wp(5), top: hp(2)}}
+            onPress={() => setIsVisible(!isVisible)}>
             {isVisible ? Eye : EyeOff}
           </TouchableOpacity>
         ) : null}

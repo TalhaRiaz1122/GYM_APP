@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import Svg, {
   G,
   Circle,
@@ -7,21 +7,21 @@ import Svg, {
   ClipPath,
   Rect,
   SvgProps,
-} from "react-native-svg";
-/* SVGR has dropped some elements not supported by react-native-svg: filter */
+} from 'react-native-svg';
+
 const FullButton = (props: SvgProps) => (
   <Svg width={108} height={108} viewBox="0 0 108 108" fill="none" {...props}>
-    <G filter="url(#filter0_d_0_1)">
+    <G>
       <Circle cx={54} cy={54} r={39} fill="#3191D7" />
     </G>
-    <G filter="url(#filter1_d_0_1)">
+    <G>
       <Circle
         cx={54}
         cy={54}
         r={49}
         stroke="#3191D7"
         strokeWidth={2.5}
-        shape-Rendering="crispEdges"
+        shapeRendering="crispEdges"
       />
     </G>
     <G clipPath="url(#clip0_0_1)">
@@ -44,4 +44,5 @@ const FullButton = (props: SvgProps) => (
     </Defs>
   </Svg>
 );
+
 export default FullButton;

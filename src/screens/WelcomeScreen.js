@@ -19,7 +19,7 @@ import Facebook from '../asserts/svgs/Facebook';
 import Google from '../asserts/svgs/Google';
 import Apple from '../asserts/svgs/Apple';
 import Or from '../asserts/svgs/Or';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import HeaderText from '../components/HeaderText';
 
 const WelcomeScreen = () => {
@@ -29,8 +29,7 @@ const WelcomeScreen = () => {
       <ImageBackground
         resizeMode="cover"
         style={Style.imgBackground}
-        source={require('../asserts/images/Welcome.png')}
-      >
+        source={require('../asserts/images/Welcome.png')}>
         <View style={Style.header}>
           <HeaderText
             logo={<Logo width={wp(20)} height={hp(10)} />}
@@ -39,15 +38,14 @@ const WelcomeScreen = () => {
         </View>
         <View style={Style.footer}>
           <View style={Style.textview}>
-            <Text style={{ fontSize: hp(2.3), color: 'white' }}>
+            <Text style={{fontSize: hp(2.3), color: 'white'}}>
               Welcome to FitSynth
             </Text>
             <Text
               style={{
                 fontSize: hp(2),
                 color: 'white',
-              }}
-            >
+              }}>
               Please Login/Sign Up to continue
             </Text>
             <View style={Style.buttonview}>
@@ -69,7 +67,7 @@ const WelcomeScreen = () => {
                 }}
               />
             </View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={{alignItems: 'center'}}>
               <Or fill="#092441" />
             </View>
             <View style={Style.iconview}>
@@ -79,12 +77,12 @@ const WelcomeScreen = () => {
                 </SocialButton>
               </View>
               <View style={Style.icon}>
-                <SocialButton style={{ backgroundColor: 'white' }}>
+                <SocialButton style={{backgroundColor: 'white'}}>
                   <Google />
                 </SocialButton>
               </View>
               <View style={Style.icon}>
-                <SocialButton style={{ backgroundColor: 'black' }}>
+                <SocialButton style={{backgroundColor: 'black'}}>
                   <Apple />
                 </SocialButton>
               </View>
@@ -102,15 +100,15 @@ const Style = StyleSheet.create({
   imgBackground: {
     width: wp('100%'),
     height: hp('100%'),
-
     flex: 1,
   },
   header: {
+    marginTop: Platform.OS == 'android' ? hp(0) : hp(4),
     flex: 1.4,
   },
   footer: {
     marginHorizontal: wp(5),
-    marginVertical: wp(5),
+    marginVertical: wp(6),
     flex: 1,
     backgroundColor: '#092441',
     borderRadius: wp(5),

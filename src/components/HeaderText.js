@@ -12,9 +12,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import SingleArrow from '../asserts/svgs/SingleArrow';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-const HeaderText = ({ logo, EndIcon, style, statusBarColor }) => {
+const HeaderText = ({logo, EndIcon, style, statusBarColor}) => {
   const navigation = useNavigation();
   return (
     <View style={[styles.header, style]}>
@@ -23,7 +23,7 @@ const HeaderText = ({ logo, EndIcon, style, statusBarColor }) => {
         barStyle="light-content"
       />
 
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TouchableOpacity>
           <SingleArrow
             onPress={() => {
@@ -32,11 +32,11 @@ const HeaderText = ({ logo, EndIcon, style, statusBarColor }) => {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 4, alignItems: 'center' }}>
+      <View style={{flex: 4, alignItems: 'center'}}>
         <TouchableOpacity>{logo}</TouchableOpacity>
       </View>
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity style={{ alignSelf: 'flex-end' }}>
+      <View style={{flex: 1}}>
+        <TouchableOpacity style={{alignSelf: 'flex-end'}}>
           {EndIcon}
         </TouchableOpacity>
       </View>
