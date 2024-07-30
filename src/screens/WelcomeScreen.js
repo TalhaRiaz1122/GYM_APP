@@ -27,7 +27,7 @@ const WelcomeScreen = () => {
   return (
     <View style={Style.mainContainer}>
       <ImageBackground
-        resizeMode="cover"
+        resizeMode="stretch"
         style={Style.imgBackground}
         source={require('../asserts/images/Welcome.png')}>
         <View style={Style.header}>

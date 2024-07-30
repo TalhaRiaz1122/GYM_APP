@@ -65,187 +65,191 @@ const BottomSheetComponent = ({isVisible, setIsVisible}) => {
       )}
       enablePanDownToClose
       onClose={() => setIsVisible(false)}>
-      <SafeAreaView style={styles.contentContainer}>
-        <View style={styles.sheetContent}>
-          <View style={styles.paymentContainer}>
-            <CustomButton
-              title="Apple Pay"
-              style={{
-                backgroundColor: 'black',
-                height: hp(5),
-                width: '100%',
-                flexDirection: 'row',
-              }}>
-              <Apple style={{marginHorizontal: wp(2)}} width={wp(4)} />
-            </CustomButton>
-            <View style={{marginVertical: hp(1)}}>
-              <OrPayUsing />
-            </View>
-            <View style={styles.cardOptions}>
+      <ScrollView>
+        <SafeAreaView style={styles.contentContainer}>
+          <View style={styles.sheetContent}>
+            <View style={styles.paymentContainer}>
               <CustomButton
-                title="Master Card"
-                textStyle={{alignSelf: 'flex-start'}}
-                style={[
-                  styles.cardButton,
-                  selectedCard === 'Master Card' && styles.selectedCardButton,
-                ]}
-                onPress={() => setSelectedCard('Master Card')}>
-                <MasterCard
-                  style={{alignSelf: 'flex-start', marginBottom: hp(1)}}
-                />
-              </CustomButton>
-              <CustomButton
-                title="VISA"
-                textStyle={{
-                  alignSelf: 'flex-start',
-                  marginHorizontal: wp(1),
-                }}
-                style={[
-                  styles.cardButton,
-                  selectedCard === 'VISA' && styles.selectedCardButton,
-                ]}
-                onPress={() => setSelectedCard('VISA')}>
-                <Visa style={{alignSelf: 'flex-start', marginBottom: hp(1)}} />
-              </CustomButton>
-              <CustomButton
-                title="Stripe"
-                textStyle={{
-                  alignSelf: 'flex-start',
-                  marginHorizontal: wp(1),
-                }}
-                style={[
-                  styles.cardButton,
-                  selectedCard === 'Stripe' && styles.selectedCardButton,
-                ]}
-                onPress={() => setSelectedCard('Stripe')}>
-                <Stripe
-                  style={{alignSelf: 'flex-start', marginBottom: hp(1)}}
-                />
-              </CustomButton>
-            </View>
-
-            <View style={styles.cardInformation}>
-              <Text
+                title="Apple Pay"
                 style={{
-                  fontSize: wp(4),
-                  color: 'white',
-                  marginVertical: wp(2),
+                  backgroundColor: 'black',
+                  height: hp(5),
+                  width: '100%',
+                  flexDirection: 'row',
                 }}>
-                Card Information
-              </Text>
-              <Card
-                style={{
-                  position: 'absolute',
-                  right: wp(0),
-                  top: Platform.OS == 'android' ? hp(7) : hp(5.5),
-                  marginHorizontal: wp(4),
-                  zIndex: 1,
-                }}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Card Number"
-                placeholderTextColor="white"
-              />
-              <View style={styles.inputRow}>
-                <TextInput
-                  style={[
-                    styles.inputHalf,
-                    {
-                      borderColor: '#5E5E5E',
-                      borderRightWidth: 1,
-                      borderBottomLeftRadius: wp(2),
-                    },
-                  ]}
-                  placeholder="MM/YY"
-                  placeholderTextColor="white"
-                />
-                <TextInput
-                  style={[
-                    styles.inputHalf,
-                    {
-                      borderBottomRightRadius: wp(2),
-                    },
-                  ]}
-                  placeholder="CVC"
-                  placeholderTextColor="white"
-                />
+                <Apple style={{marginHorizontal: wp(2)}} width={wp(4)} />
+              </CustomButton>
+              <View style={{marginVertical: hp(1)}}>
+                <OrPayUsing />
               </View>
-              <Text
-                style={{
-                  fontSize: wp(4),
-                  color: 'white',
-                  marginVertical: wp(2),
-                }}>
-                Card Information
-              </Text>
-            </View>
-            <View
-              style={{
-                width: '100%',
-              }}>
-              <View style={styles.pickerContainer}>
-                <RNPickerSelect
-                  onValueChange={value => setSelectedCountry(value)}
-                  value={selectedCountry}
-                  items={[
-                    {label: 'United States', value: 'US'},
-                    {label: 'Pakistan', value: 'PK'},
+              <View style={styles.cardOptions}>
+                <CustomButton
+                  title="Master Card"
+                  textStyle={{alignSelf: 'flex-start'}}
+                  style={[
+                    styles.cardButton,
+                    selectedCard === 'Master Card' && styles.selectedCardButton,
                   ]}
-                  style={{
-                    inputIOS: {
-                      backgroundColor: '#092441',
-                      color: 'white',
-                      padding: wp(3),
-                      borderTopLeftRadius: wp(2),
-                      borderTopRightRadius: wp(2),
-                    },
-                    inputAndroid: {
-                      color: 'white',
-                      padding: wp(3),
-                    },
-                    viewContainer: {
-                      borderTopLeftRadius: wp(2),
-                      borderTopRightRadius: wp(2),
-                      backgroundColor: '#092441',
-                    },
-
-                    placeholder: {
-                      color: 'white',
-                    },
+                  onPress={() => setSelectedCard('Master Card')}>
+                  <MasterCard
+                    style={{alignSelf: 'flex-start', marginBottom: hp(1)}}
+                  />
+                </CustomButton>
+                <CustomButton
+                  title="VISA"
+                  textStyle={{
+                    alignSelf: 'flex-start',
+                    marginHorizontal: wp(1),
                   }}
-                  placeholder={{label: 'Select a country...', value: null}}
-                  pickerProps={{dropdownIconColor: 'white'}}
+                  style={[
+                    styles.cardButton,
+                    selectedCard === 'VISA' && styles.selectedCardButton,
+                  ]}
+                  onPress={() => setSelectedCard('VISA')}>
+                  <Visa
+                    style={{alignSelf: 'flex-start', marginBottom: hp(1)}}
+                  />
+                </CustomButton>
+                <CustomButton
+                  title="Stripe"
+                  textStyle={{
+                    alignSelf: 'flex-start',
+                    marginHorizontal: wp(1),
+                  }}
+                  style={[
+                    styles.cardButton,
+                    selectedCard === 'Stripe' && styles.selectedCardButton,
+                  ]}
+                  onPress={() => setSelectedCard('Stripe')}>
+                  <Stripe
+                    style={{alignSelf: 'flex-start', marginBottom: hp(1)}}
+                  />
+                </CustomButton>
+              </View>
+
+              <View style={styles.cardInformation}>
+                <Text
+                  style={{
+                    fontSize: wp(4),
+                    color: 'white',
+                    marginVertical: wp(2),
+                  }}>
+                  Card Information
+                </Text>
+                <Card
+                  style={{
+                    position: 'absolute',
+                    right: wp(0),
+                    top: Platform.OS == 'android' ? hp(7) : hp(5.5),
+                    marginHorizontal: wp(4),
+                    zIndex: 1,
+                  }}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Card Number"
+                  placeholderTextColor="white"
+                />
+                <View style={styles.inputRow}>
+                  <TextInput
+                    style={[
+                      styles.inputHalf,
+                      {
+                        borderColor: '#5E5E5E',
+                        borderRightWidth: 1,
+                        borderBottomLeftRadius: wp(2),
+                      },
+                    ]}
+                    placeholder="MM/YY"
+                    placeholderTextColor="white"
+                  />
+                  <TextInput
+                    style={[
+                      styles.inputHalf,
+                      {
+                        borderBottomRightRadius: wp(2),
+                      },
+                    ]}
+                    placeholder="CVC"
+                    placeholderTextColor="white"
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontSize: wp(4),
+                    color: 'white',
+                    marginVertical: wp(2),
+                  }}>
+                  Card Information
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                }}>
+                <View style={styles.pickerContainer}>
+                  <RNPickerSelect
+                    onValueChange={value => setSelectedCountry(value)}
+                    value={selectedCountry}
+                    items={[
+                      {label: 'United States', value: 'US'},
+                      {label: 'Pakistan', value: 'PK'},
+                    ]}
+                    style={{
+                      inputIOS: {
+                        backgroundColor: '#092441',
+                        color: 'white',
+                        padding: wp(3),
+                        borderTopLeftRadius: wp(2),
+                        borderTopRightRadius: wp(2),
+                      },
+                      inputAndroid: {
+                        color: 'white',
+                        padding: wp(3),
+                      },
+                      viewContainer: {
+                        borderTopLeftRadius: wp(2),
+                        borderTopRightRadius: wp(2),
+                        backgroundColor: '#092441',
+                      },
+
+                      placeholder: {
+                        color: 'white',
+                      },
+                    }}
+                    placeholder={{label: 'Select a country...', value: null}}
+                    pickerProps={{dropdownIconColor: 'white'}}
+                  />
+                </View>
+                <TextInput
+                  style={{
+                    backgroundColor: '#092441',
+                    padding: wp(3),
+                    borderTopWidth: 1,
+                    borderTopColor: '#5E5E5E',
+                    borderBottomLeftRadius: wp(2),
+                    borderBottomRightRadius: wp(2),
+                  }}
+                  placeholder="ZIP"
+                  placeholderTextColor="white"
                 />
               </View>
-              <TextInput
+
+              <CustomButton
+                title="Pay $80.00"
                 style={{
-                  backgroundColor: '#092441',
-                  padding: wp(3),
-                  borderTopWidth: 1,
-                  borderTopColor: '#5E5E5E',
-                  borderBottomLeftRadius: wp(2),
-                  borderBottomRightRadius: wp(2),
+                  width: '100%',
+                  marginVertical: Platform.OS == 'android' ? hp(2) : hp(5),
                 }}
-                placeholder="ZIP"
-                placeholderTextColor="white"
+                onPress={() => {
+                  navigation.navigate('UserRegistration');
+                  setIsVisible(false);
+                }}
               />
             </View>
-
-            <CustomButton
-              title="Pay $80.00"
-              style={{
-                width: '100%',
-                marginVertical: Platform.OS == 'android' ? hp(2) : hp(5),
-              }}
-              onPress={() => {
-                navigation.navigate('UserRegistration');
-                setIsVisible(false);
-              }}
-            />
           </View>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </ScrollView>
     </BottomSheet>
   );
 };

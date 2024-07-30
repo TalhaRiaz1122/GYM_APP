@@ -9,15 +9,16 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import HomeHeaderImage from '../asserts/svgs/HomeHeaderImage';
-import Calender from '../asserts/svgs/Calender';
+import Calendar from '../asserts/svgs/Calender';
 import SearchIcon from '../asserts/svgs/SearchIcon';
-import JymIcon from '../asserts/svgs/JymIcon';
+import GymIcon from '../asserts/svgs/JymIcon';
 import MealIcon from '../asserts/svgs/MealIcon';
 import FeedIcon from '../asserts/svgs/FeedIcon';
 import DotMenu from '../asserts/svgs/DotMenu';
@@ -34,7 +35,7 @@ const HomeScreen = () => {
     {
       id: '1',
       text: 'Workouts',
-      icon: <JymIcon style={{top: wp(2), marginLeft: wp(2)}} />,
+      icon: <GymIcon style={{top: wp(2), marginLeft: wp(2)}} />,
     },
     {
       id: '2',
@@ -50,7 +51,7 @@ const HomeScreen = () => {
       id: '4',
       text: 'Calendar',
       icon: (
-        <Calender
+        <Calendar
           style={{top: wp(2), marginLeft: wp(2)}}
           width={24}
           height={24}
@@ -65,6 +66,8 @@ const HomeScreen = () => {
       icon: (
         <FirstTrainer
           style={{backgroundColor: '#9181F2', borderRadius: wp(2)}}
+          width={wp(30)}
+          height={wp(28)}
         />
       ),
       title: 'Kelli Hall',
@@ -76,6 +79,8 @@ const HomeScreen = () => {
       icon: (
         <SecondTrainer
           style={{backgroundColor: '#BFE1FF', borderRadius: wp(2)}}
+          width={wp(30)}
+          height={wp(28)}
         />
       ),
       title: 'Sandy Barnett',
@@ -86,6 +91,8 @@ const HomeScreen = () => {
       icon: (
         <ThirdTrainer
           style={{backgroundColor: '#3BADFF', borderRadius: wp(2)}}
+          width={wp(30)}
+          height={wp(28)}
         />
       ),
       title: 'Trainer 3',
@@ -145,84 +152,89 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.whole}>
       <StatusBar backgroundColor="#051A30" barStyle="light-content" />
-      <View style={styles.Header}>
-        <View style={styles.headerTextView}>
-          <View style={styles.headerText}>
-            <Text style={{color: '#7B7B7C'}}>Hello,</Text>
-            <Text style={{color: 'white', fontSize: wp(5), fontWeight: 'bold'}}>
-              Nathan T.
-            </Text>
+      <View style={{flex: 1}}>
+        <View style={styles.Header}>
+          <View style={styles.headerTextView}>
+            <View style={styles.headerText}>
+              <Text style={{color: '#7B7B7C'}}>Hello,</Text>
+              <Text
+                style={{color: 'white', fontSize: wp(5), fontWeight: 'bold'}}>
+                Nathan T.
+              </Text>
+            </View>
+            <View style={styles.headerImage}>
+              <HomeHeaderImage />
+            </View>
           </View>
-          <View style={styles.headerImage}>
-            <HomeHeaderImage />
+          <View style={styles.cardInformation}>
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                right: wp(0),
+                alignSelf: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: Platform.OS == 'android' ? hp(1) : hp(0.4),
+                marginHorizontal: wp(2),
+                zIndex: 1,
+              }}>
+              <SearchIcon width={wp(10)} height={hp(5)} />
+            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Schedule an Appointment"
+              placeholderTextColor="#7B7B7C"
+            />
           </View>
         </View>
-        <View style={styles.cardInformation}>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              right: wp(0),
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: Platform.OS == 'android' ? hp(1) : hp(0.4),
-              marginHorizontal: wp(2),
-              zIndex: 1,
-            }}>
-            <SearchIcon width={wp(10)} height={hp(5)} />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            placeholder="Schedule an Appointment"
-            placeholderTextColor="#7B7B7C"
+      </View>
+      <View style={{flex: 1.2}}>
+        <View style={styles.cardContainer}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            numColumns={2}
+            columnWrapperStyle={styles.row}
           />
         </View>
       </View>
-      <View style={styles.cardContainer}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns={2}
-          columnWrapperStyle={styles.row}
-        />
-      </View>
-      <View
-        style={{
-          marginHorizontal: wp(5),
-        }}>
-        <View
-          style={{
-            marginVertical: hp(1),
-            flexDirection: 'row',
-          }}>
-          <Text
+      <View style={{flex: 1.2}}>
+        <View style={{marginHorizontal: wp(5)}}>
+          <View
             style={{
-              color: 'white',
-              fontSize: wp(4),
-              flex: 1,
-              fontWeight: 'bold',
+              marginVertical: hp(1),
+              flexDirection: 'row',
             }}>
-            My Trainers
-          </Text>
-          <TouchableOpacity>
-            <DotMenu style={{alignContent: 'flex-end', marginTop: wp(3)}} />
-          </TouchableOpacity>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: wp(4),
+                flex: 1,
+                fontWeight: 'bold',
+              }}>
+              My Trainers
+            </Text>
+            <TouchableOpacity>
+              <DotMenu style={{alignContent: 'flex-end', marginTop: wp(3)}} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <View style={{marginLeft: wp(5)}}>
-        <FlatList
-          data={trainerData}
-          renderItem={renderTrainerItem}
-          keyExtractor={item => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.horizontalFlatList}
-        />
+        <View style={{marginLeft: wp(5)}}>
+          <FlatList
+            data={trainerData}
+            renderItem={renderTrainerItem}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalFlatList}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   whole: {
     flex: 1,
@@ -233,7 +245,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
     paddingVertical: wp(4),
     borderRadius: hp(5),
-
     color: 'white',
   },
   Header: {
@@ -261,9 +272,8 @@ const styles = StyleSheet.create({
     marginVertical: hp(2),
   },
   cardContainer: {
-    //flex: 1,
     backgroundColor: '#051A30',
-    marginTop: hp(5),
+    //marginTop: hp(5),
     marginHorizontal: wp(3),
   },
   row: {
@@ -320,4 +330,5 @@ const styles = StyleSheet.create({
     fontSize: hp(2),
   },
 });
+
 export default HomeScreen;

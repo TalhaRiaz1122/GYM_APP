@@ -14,7 +14,7 @@ import {
 import SingleArrow from '../asserts/svgs/SingleArrow';
 import {useNavigation} from '@react-navigation/native';
 
-const HeaderText = ({logo, EndIcon, style, statusBarColor}) => {
+const HeaderText = ({logo, EndIcon, style, statusBarColor, Arrowstyle}) => {
   const navigation = useNavigation();
   return (
     <View style={[styles.header, style]}>
@@ -23,13 +23,12 @@ const HeaderText = ({logo, EndIcon, style, statusBarColor}) => {
         barStyle="light-content"
       />
 
-      <View style={{flex: 1}}>
-        <TouchableOpacity>
-          <SingleArrow
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
+      <View style={[{flex: 1}, Arrowstyle]}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <SingleArrow />
         </TouchableOpacity>
       </View>
       <View style={{flex: 4, alignItems: 'center'}}>

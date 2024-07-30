@@ -225,7 +225,7 @@ const UserRegistration = () => {
           />
         </View>
       </View>
-      <View style={{marginTop: hp(10)}}>
+      <View style={{marginTop: Platform.OS == 'android' ? hp(10) : hp(8)}}>
         <CustomNextButton
           title={'Continue'}
           style={{marginHorizontal: wp(5)}}

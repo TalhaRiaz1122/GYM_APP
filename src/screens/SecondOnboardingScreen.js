@@ -23,7 +23,7 @@ const SecondOnboardingScreen = () => {
     <View style={Style.mainContainer}>
       <StatusBar backgroundColor="#051A30" barStyle="light-content" />
       <ImageBackground
-        resizeMode="cover"
+        resizeMode="stretch"
         style={Style.imgBackground}
         source={require('../asserts/images/SecondOnboardingScreen.png')}>
         <View style={Style.header}>

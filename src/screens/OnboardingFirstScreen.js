@@ -24,8 +24,8 @@ const OnboardingFirstScreen = () => {
       <StatusBar backgroundColor="#051A30" barStyle="light-content" />
       <ImageBackground
         style={Style.imgBackground}
-        resizeMode="cover"
-        source={require('../asserts/images/OnboardingFirstScreen.png')}>
+        resizeMode="stretch"
+        source={require('../asserts/images/OnboardingScreen.png')}>
         <View style={Style.header}>
           <Logo width={wp(20)} height={hp(10)} style={{alignSelf: 'center'}} />
           <TouchableOpacity

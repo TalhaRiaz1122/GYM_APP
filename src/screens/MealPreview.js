@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   Text,
   StatusBar,
-  SafeAreaView,
   ImageBackground,
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Platform,
 } from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -42,10 +43,10 @@ const data = [
   },
 ];
 const data1 = [
-  { id: '1', text: '2 Slices of bread, white farmhouse' },
-  { id: '2', text: '1 handful of roasted chicken' },
-  { id: '3', text: '2 egg yolks, medium' },
-  { id: '4', text: 'Lemon juice, freshly squeezed' },
+  {id: '1', text: '2 Slices of bread, white farmhouse'},
+  {id: '2', text: '1 handful of roasted chicken'},
+  {id: '3', text: '2 egg yolks, medium'},
+  {id: '4', text: 'Lemon juice, freshly squeezed'},
 ];
 const data2 = [
   {
@@ -78,19 +79,25 @@ const hexToRgba = (hex, opacity) => {
 };
 
 const MealPreview = () => {
-  const renderItem = ({ item }) => (
+  // useEffect(() => {
+  //   if (Platform.OS === 'ios') {
+  //     StatusBar.setBarStyle('light-content', true);
+  //     StatusBar.setHidden(false, 'fade');
+  //   }
+  // }, []);
+
+  const renderItem = ({item}) => (
     <View
       style={[
         styles.circle,
-        { borderColor: hexToRgba(item.borderColor, item.opacity) },
-      ]}
-    >
+        {borderColor: hexToRgba(item.borderColor, item.opacity)},
+      ]}>
       <Text style={styles.title1}>{item.title}</Text>
       <Text style={styles.subtitle1}>{item.subtitle}</Text>
     </View>
   );
 
-  const renderItem1 = ({ item }) => (
+  const renderItem1 = ({item}) => (
     <View style={styles.itemContainer1}>
       <View style={styles.dot} />
       <Text style={styles.text}>{item.text}</Text>
@@ -99,11 +106,11 @@ const MealPreview = () => {
 
   const [expanded, setExpanded] = useState({});
 
-  const toggleExpand = (id) => {
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  const toggleExpand = id => {
+    setExpanded(prev => ({...prev, [id]: !prev[id]}));
   };
 
-  const renderItem2 = ({ item }) => (
+  const renderItem2 = ({item}) => (
     <View style={styles.itemContainer}>
       <Text style={styles.title}>
         {item.title}
@@ -120,28 +127,37 @@ const MealPreview = () => {
   );
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <SafeAreaProvider style={styles.mainContainer}>
       <StatusBar
         backgroundColor="transparent"
         barStyle="light-content"
         translucent={true}
       />
+
       <View style={styles.statusBarOverlay} />
       <ImageBackground
         source={require('../asserts/images/MealImage.png')}
         style={styles.imageBackground}
-        imageStyle={styles.imageStyle}
-      >
+        imageStyle={styles.imageStyle}>
         <View style={styles.headerOverlay}>
           <HeaderText
-            style={{ marginVertical: hp(4), marginTop: hp(6) }}
+            style={{
+              marginVertical: Platform.OS === 'ios' ? hp(5) : hp(4),
+              marginTop: hp(6),
+            }}
             logo={
-              <Text style={{ color: 'white', fontSize: wp(5) }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: wp(5),
+                  top: Platform.OS === 'ios' ? hp(3) : hp(2),
+                }}>
                 Meal Preview
               </Text>
             }
             statusBarColor={'transparent'}
             translucent={true}
+            Arrowstyle={{top: Platform.OS === 'ios' ? hp(3) : hp(2)}}
           />
         </View>
       </ImageBackground>
@@ -150,21 +166,17 @@ const MealPreview = () => {
           flexDirection: 'row',
           marginHorizontal: wp(4),
           marginVertical: hp(2),
-        }}
-      >
+        }}>
         <Text
           style={{
             color: 'white',
             fontSize: wp(4.5),
             fontWeight: 'bold',
             flex: 1,
-          }}
-        >
+          }}>
           Chicken Sandwich
         </Text>
-        <TouchableOpacity
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-        >
+        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
           <PlusIcon color="#3191D7" width={wp(4.5)} height={18} top={wp(1)} />
           <Text
             style={{
@@ -172,31 +184,28 @@ const MealPreview = () => {
               fontSize: wp(3),
               marginLeft: wp(1.5),
               marginTop: hp(1),
-            }}
-          >
+            }}>
             Add to Calendar
           </Text>
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <View style={{ marginHorizontal: wp(5) }}>
+        <View style={{marginHorizontal: wp(5)}}>
           <View
             style={{
               marginVertical: hp(1),
               flexDirection: 'row',
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: 'white',
                 fontSize: wp(4),
                 flex: 1,
-              }}
-            >
+              }}>
               Nutrition:
             </Text>
             <TouchableOpacity>
-              <DotMenu style={{ alignContent: 'flex-end', marginTop: wp(3) }} />
+              <DotMenu style={{alignContent: 'flex-end', marginTop: wp(3)}} />
             </TouchableOpacity>
           </View>
           <View
@@ -204,36 +213,33 @@ const MealPreview = () => {
               backgroundColor: '#092441',
               paddingVertical: hp(2),
               borderRadius: wp(3),
-            }}
-          >
+            }}>
             <FlatList
               data={data}
               renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor={item => item.id}
               numColumns={3}
               contentContainerStyle={styles.containerCircle}
               scrollEnabled={false}
             />
           </View>
         </View>
-        <View style={{ marginHorizontal: wp(5) }}>
+        <View style={{marginHorizontal: wp(5)}}>
           <View
             style={{
               marginVertical: hp(1.5),
               flexDirection: 'row',
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: 'white',
                 fontSize: wp(4),
                 flex: 1,
-              }}
-            >
+              }}>
               Ingredients:
             </Text>
             <TouchableOpacity>
-              <DotMenu style={{ alignContent: 'flex-end', marginTop: wp(3) }} />
+              <DotMenu style={{alignContent: 'flex-end', marginTop: wp(3)}} />
             </TouchableOpacity>
           </View>
           <View
@@ -241,35 +247,32 @@ const MealPreview = () => {
               backgroundColor: '#092441',
               paddingVertical: hp(2),
               borderRadius: wp(3),
-            }}
-          >
+            }}>
             <FlatList
               data={data1}
               renderItem={renderItem1}
-              keyExtractor={(item) => item.id}
+              keyExtractor={item => item.id}
               contentContainerStyle={styles.containerText1}
               scrollEnabled={false}
             />
           </View>
         </View>
-        <View style={{ marginHorizontal: wp(5) }}>
+        <View style={{marginHorizontal: wp(5)}}>
           <View
             style={{
               marginVertical: hp(1.5),
               flexDirection: 'row',
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: 'white',
                 fontSize: wp(4),
                 flex: 1,
-              }}
-            >
+              }}>
               Preparation:
             </Text>
             <TouchableOpacity>
-              <DotMenu style={{ alignContent: 'flex-end', marginTop: wp(3) }} />
+              <DotMenu style={{alignContent: 'flex-end', marginTop: wp(3)}} />
             </TouchableOpacity>
           </View>
           <View
@@ -277,19 +280,18 @@ const MealPreview = () => {
               backgroundColor: '#092441',
               paddingVertical: hp(2),
               borderRadius: wp(3),
-            }}
-          >
+            }}>
             <FlatList
               data={data2}
               renderItem={renderItem2}
-              keyExtractor={(item) => item.id}
+              keyExtractor={item => item.id}
               contentContainerStyle={styles.container}
               scrollEnabled={false}
             />
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
@@ -303,7 +305,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: StatusBar.currentHeight,
+    height: Platform.OS === 'ios' ? wp(12) : StatusBar.currentHeight,
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     zIndex: 1,
   },

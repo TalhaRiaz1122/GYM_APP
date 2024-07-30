@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Button, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import BottomSheetComponent from '../components/BottomSheetComponent';
 import {BlurView} from '@react-native-community/blur';
 
@@ -14,6 +21,7 @@ import DropDownIcon from '../asserts/svgs/DropDownIcon';
 import Tick from '../asserts/svgs/Tick';
 import CustomNextButton from '../components/CustomNextButton';
 import {Platform} from 'react-native';
+import {ScrollView} from 'react-native';
 
 const Subscription1 = () => {
   const [isSheetVisible, setIsSheetVisible] = useState(false);

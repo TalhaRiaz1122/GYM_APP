@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,7 +12,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
 import HeaderText from '../components/HeaderText';
 import Question from '../asserts/svgs/Question';
@@ -72,10 +72,9 @@ const Workouts = () => {
     },
   ];
 
-  const renderItem = ({ item, index }) => (
+  const renderItem = ({item, index}) => (
     <View
-      style={[styles.card, index === data.length - 1 ? styles.lastCard : null]}
-    >
+      style={[styles.card, index === data.length - 1 ? styles.lastCard : null]}>
       {item.iconLeft}
 
       <View style={styles.cardContent}>
@@ -88,23 +87,21 @@ const Workouts = () => {
       </View>
 
       <TouchableOpacity
-        style={{ position: 'absolute', right: wp(5), alignSelf: 'center' }}
+        style={{position: 'absolute', right: wp(5), alignSelf: 'center'}}
         onPress={() => {
           navigation.navigate('WorkoutPreview');
-        }}
-      >
+        }}>
         {item.iconRight}
       </TouchableOpacity>
     </View>
   );
 
-  const weightRenderItem = ({ item }) => (
+  const weightRenderItem = ({item}) => (
     <View
       style={[
         styles.cardContainerWeight,
-        { backgroundColor: item.backgroundColor },
-      ]}
-    >
+        {backgroundColor: item.backgroundColor},
+      ]}>
       <View style={styles.iconTopRightWeight}>{item.icon}</View>
       <View style={styles.textCenterWeight}>
         <Text style={styles.cardTitleWeight}>{item.title}</Text>
@@ -117,50 +114,50 @@ const Workouts = () => {
     <SafeAreaView style={styles.mainContainer}>
       <View>
         <HeaderText
-          style={{ marginVertical: hp(3) }}
-          logo={
-            <Text style={{ color: 'white', fontSize: wp(5) }}>Workouts</Text>
-          }
+          style={{marginVertical: hp(3)}}
+          logo={<Text style={{color: 'white', fontSize: wp(5)}}>Workouts</Text>}
           EndIcon={<Question />}
         />
       </View>
 
       <View style={styles.FlatWork}>
-        <Text style={{ color: 'white', fontSize: wp(4.5) }}>
+        <Text style={{color: 'white', fontSize: wp(4.5)}}>
           Assigned Workout
         </Text>
-        <View style={{ marginTop: hp(1) }}>
+        <View style={{marginTop: hp(1)}}>
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={item => item.id}
           />
         </View>
-        <View style={{ marginTop: hp(2) }}>
+        <View style={{marginTop: hp(2)}}>
           <Text
-            style={{ color: 'white', fontSize: wp(4.5), marginBottom: wp(3) }}
-          >
+            style={{color: 'white', fontSize: wp(4.5), marginBottom: wp(3)}}>
             My Weight
           </Text>
           <View>
             <FlatList
               data={weightData}
               renderItem={weightRenderItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor={item => item.id}
               numColumns={3}
               contentContainerStyle={styles.flatListContent}
             />
           </View>
         </View>
-        <View style={{ marginTop: hp(3) }}>
+        <View style={{marginTop: hp(3)}}>
           <Text
-            style={{ color: 'white', fontSize: wp(4.5), marginBottom: wp(4) }}
-          >
+            style={{color: 'white', fontSize: wp(4.5), marginBottom: wp(4)}}>
             My Reports:
           </Text>
         </View>
       </View>
-      <View style={{ position: 'absolute', top: hp(75) }}>
+      <View
+        style={{
+          position: 'absolute',
+          top: Platform.OS == 'android' ? hp(75) : hp(74),
+        }}>
         <Chart />
       </View>
     </SafeAreaView>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { LineChart } from 'react-native-gifted-charts';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {StyleSheet, Text, View} from 'react-native';
+import {LineChart} from 'react-native-gifted-charts';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
-import { ruleTypes } from 'gifted-charts-core';
+import {ruleTypes} from 'gifted-charts-core';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -11,24 +11,23 @@ import {
 
 const Chart = () => {
   const data = [
-    { value: 100, label: 'Mon' },
-    { value: 200, label: 'Tue' },
-    { value: 150, label: 'Wed' },
-    { value: 250, label: 'Thu', dataPointText: '2 hrs' },
-    { value: 100, label: 'Fri' },
-    { value: 400, label: 'Sat' },
-    { value: 200, label: 'Sun' },
+    {value: 100, label: 'Mon'},
+    {value: 200, label: 'Tue'},
+    {value: 150, label: 'Wed'},
+    {value: 250, label: 'Thu', dataPointText: '2 hrs'},
+    {value: 100, label: 'Fri'},
+    {value: 400, label: 'Sat'},
+    {value: 200, label: 'Sun'},
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <LinearGradient
           colors={['rgba(5, 26, 48, 1)', 'rgba(5, 26, 48, 4)']}
           style={styles.gradientBackground}
-          start={{ x: 0.5, y: 0 }}
-          end={{ x: 0, y: 1 }}
-        >
+          start={{x: 0.5, y: 0}}
+          end={{x: 0, y: 1}}>
           <LineChart
             data={data}
             width={wp('90%')}
@@ -72,7 +71,7 @@ const Chart = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   dataPointContainer: {
     position: 'absolute',
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   gradientBackground: {
-    width: wp('90%'),
+    width: wp('100%'),
     height: hp('40%'), // Adjusted height
   },
   labelText: {
