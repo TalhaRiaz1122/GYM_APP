@@ -32,7 +32,12 @@ const OnboardingFirstScreen = () => {
             onPress={() => {
               navigation.navigate('WelcomeScreen');
             }}>
-            <SkipArrow style={{alignSelf: 'flex-end', top: hp(-7)}} />
+            <SkipArrow
+              style={{alignSelf: 'flex-end', top: hp(-7)}}
+              onPress={() => {
+                navigation.navigate('WelcomeScreen');
+              }}
+            />
           </TouchableOpacity>
         </View>
         <View style={Style.footer}>
