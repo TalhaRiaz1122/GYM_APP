@@ -38,6 +38,7 @@ const CustomCalendarStrip = ({selectedDate, onDateSelected}) => {
   const scrollViewRef = useRef();
 
   useEffect(() => {
+    console.log('Current Date:', currentDate);
     generateDatesForMonth(currentDate);
   }, [currentDate]);
 

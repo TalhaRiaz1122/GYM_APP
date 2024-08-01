@@ -174,7 +174,7 @@ const HomeScreen = () => {
                 alignSelf: 'center',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: Platform.OS == 'android' ? hp(1) : hp(0.4),
+                marginTop: Platform.OS == 'android' ? hp(1) : hp(0.3),
                 marginHorizontal: wp(2),
                 zIndex: 1,
               }}>

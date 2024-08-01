@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -15,18 +15,26 @@ import {
 } from 'react-native-responsive-screen';
 import HeaderText from '../components/HeaderText';
 import Question from '../asserts/svgs/Question';
-import FirstTrainer from '../asserts/svgs/FirstTrainer';
-import { launchImageLibrary } from 'react-native-image-picker';
-import ImagePickerIcon from '../asserts/svgs/ImagePicker';
 import HeartIcon from '../asserts/svgs/HeartIcon';
 import SmsIcon from '../asserts/svgs/SmsIcon';
 import ShareIcon from '../asserts/svgs/ShareIcon';
-import SecondTrainer from '../asserts/svgs/SecondTrainer';
-import VerticalDotMenu from '../asserts/svgs/VerticalDotMenu';
-import PostedIcon from '../asserts/svgs/PostedIcon';
 import ThirdTrainer from '../asserts/svgs/ThirdTrainer';
+import Share from 'react-native-share';
 
 const TrainerProfileScreen = () => {
+  const handleShare = async item => {
+    const shareOptions = {
+      title: 'Share via',
+      message: item.subtitle,
+    };
+
+    try {
+      await Share.open(shareOptions);
+    } catch (error) {
+      console.log('Error =>', error);
+    }
+  };
+
   const data = [
     {
       id: '1',
@@ -78,25 +86,22 @@ const TrainerProfileScreen = () => {
     },
   ];
 
-  const renderItem = ({ item }) => (
-    <View style={{ marginHorizontal: wp(5) }}>
+  const renderItem = ({item}) => (
+    <View style={{marginHorizontal: wp(5)}}>
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.subtitle}>{item.subtitle}</Text>
       <View
         style={{
           paddingVertical: hp(1),
           flexDirection: 'row',
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {item.hearticon}
-          <Text
-            style={{ fontSize: hp(1.5), color: 'white', marginLeft: wp(2) }}
-          >
+          <Text style={{fontSize: hp(1.5), color: 'white', marginLeft: wp(2)}}>
             {item.headbottomtitle}
           </Text>
           <View style={styles.dot} />
-          <Text style={{ fontSize: hp(1.5), color: 'white' }}>
+          <Text style={{fontSize: hp(1.5), color: 'white'}}>
             {item.headbottomsubtitle}
           </Text>
         </View>
@@ -105,14 +110,15 @@ const TrainerProfileScreen = () => {
             marginLeft: wp(10),
             flexDirection: 'row',
             flex: 1,
-          }}
-        >
+          }}>
           {item.messgicon}
-          <Text style={{ color: 'white', marginHorizontal: wp(2) }}>
+          <Text style={{color: 'white', marginHorizontal: wp(2)}}>
             {item.messgtext}
           </Text>
         </View>
-        <TouchableOpacity>{item.Shareicon}</TouchableOpacity>
+        <TouchableOpacity onPress={() => handleShare(item)}>
+          {item.Shareicon}
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -128,11 +134,11 @@ const TrainerProfileScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <View style={{ marginHorizontal: wp(1) }}>
+      <View style={{marginHorizontal: wp(1)}}>
         <HeaderText
-          style={{ marginVertical: hp(3), marginTop: wp(9) }}
+          style={{marginVertical: hp(3), marginTop: wp(9)}}
           logo={
-            <Text style={{ color: 'white', fontSize: wp(4.5) }}>
+            <Text style={{color: 'white', fontSize: wp(4.5)}}>
               Trainer's Profile
             </Text>
           }
@@ -145,11 +151,10 @@ const TrainerProfileScreen = () => {
           backgroundColor: '#061F38',
           padding: wp(4),
           borderRadius: wp(4),
-        }}
-      >
+        }}>
         <View style={styles.card}>
           <ThirdTrainer
-            style={{ backgroundColor: '#4A80C1', borderRadius: wp(2) }}
+            style={{backgroundColor: '#4A80C1', borderRadius: wp(2)}}
             width={wp(13)}
             height={wp(13)}
           />
@@ -161,21 +166,19 @@ const TrainerProfileScreen = () => {
           </View>
 
           <TouchableOpacity
-            style={{ position: 'absolute', right: wp(2), alignSelf: 'center' }}
-          >
+            style={{position: 'absolute', right: wp(2), alignSelf: 'center'}}>
             <Question />
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ alignItems: 'center', marginHorizontal: wp(1) }}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{alignItems: 'center', marginHorizontal: wp(1)}}>
             <View style={styles.borderButton}>
               <Text style={styles.borderButtonText}>Ratings</Text>
             </View>
             <Text style={styles.cardTitle}>4.95</Text>
           </View>
           <View
-            style={{ alignItems: 'center', marginHorizontal: hp(6), flex: 1 }}
-          >
+            style={{alignItems: 'center', marginHorizontal: hp(6), flex: 1}}>
             <View style={styles.borderButton}>
               <Text style={styles.borderButtonText}>Posts</Text>
             </View>
@@ -194,13 +197,12 @@ const TrainerProfileScreen = () => {
           marginVertical: hp(3),
           marginBottom: hp(2),
           marginHorizontal: wp(5),
-        }}
-      >
+        }}>
         Recent Posts
       </Text>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         renderItem={renderItem}
       />
     </SafeAreaView>
