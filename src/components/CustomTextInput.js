@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -15,6 +21,7 @@ const CustomTextInput = ({
   Eye,
   EyeOff,
   isPassword,
+  errorMessage, // Accept errorMessage prop
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isVisible, setIsVisible] = useState(false); // State for visibility
@@ -50,6 +57,9 @@ const CustomTextInput = ({
             {isVisible ? Eye : EyeOff}
           </TouchableOpacity>
         ) : null}
+        {errorMessage ? (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        ) : null}
       </View>
     </View>
   );
@@ -77,6 +87,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: wp(2),
     paddingHorizontal: wp(2),
+  },
+  errorText: {
+    color: 'red',
+    marginTop: hp(0.5),
   },
 });
 

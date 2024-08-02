@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   Text,
 } from 'react-native';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   widthPercentageToDP as wp,
@@ -28,8 +30,20 @@ import CustomButton from '../components/CustomButton';
 import HeaderText from '../components/HeaderText';
 
 const LoginScreen = () => {
-  const [rememberMe, setRememberMe] = useState(false);
   const navigation = useNavigation();
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string()
+      .required('Please enter your password')
+      .matches(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character',
+      ),
+  });
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -58,71 +72,109 @@ const LoginScreen = () => {
         <View style={{alignItems: 'center', marginVertical: hp(1)}}>
           <Or fill="#051A30" />
         </View>
-        <View>
-          <CustomTextInput placeholder={'Email Address'} Icon={<Email />} />
-          <CustomTextInput
-            placeholder={'Password'}
-            Icon={<Password />}
-            Eye={<Eye />}
-            EyeOff={<EyeOff style={{top: hp(-0.5)}} />}
-            isPassword={true}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styles.checkboxContainer}>
-            <TouchableOpacity
-              style={[
-                styles.checkbox,
-                {
-                  backgroundColor: rememberMe ? 'transparent' : 'transparent',
-                  borderColor: rememberMe ? '#3191D7' : '#707070',
-                },
-              ]}
-              onPress={() => setRememberMe(!rememberMe)}>
-              {rememberMe && (
-                <MaterialIcons name="check" size={hp(2)} color="#3191D7" />
-              )}
-            </TouchableOpacity>
-            <Text style={styles.checkboxLabel}>Remember me</Text>
-          </View>
+        <Formik
+          initialValues={{email: '', password: ''}}
+          validationSchema={validationSchema}
+          onSubmit={values => {
+            console.log(values);
+            navigation.navigate('Subscription1');
+          }}>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isValid,
+          }) => (
+            <>
+              <View>
+                <CustomTextInput
+                  placeholder="Email Address"
+                  Icon={<Email />}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  errorMessage={
+                    touched.email && errors.email ? errors.email : null
+                  }
+                />
+                <CustomTextInput
+                  placeholder="Password"
+                  Icon={<Password />}
+                  Eye={<Eye />}
+                  EyeOff={<EyeOff style={{top: hp(-0.5)}} />}
+                  isPassword
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  errorMessage={
+                    touched.password && errors.password ? errors.password : null
+                  }
+                />
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.checkboxContainer}>
+                  <TouchableOpacity
+                    style={[
+                      styles.checkbox,
+                      {
+                        backgroundColor: rememberMe
+                          ? 'transparent'
+                          : 'transparent',
+                        borderColor: rememberMe ? '#3191D7' : '#707070',
+                      },
+                    ]}
+                    onPress={() => setRememberMe(!rememberMe)}>
+                    {rememberMe && (
+                      <MaterialIcons
+                        name="check"
+                        size={hp(2)}
+                        color="#3191D7"
+                      />
+                    )}
+                  </TouchableOpacity>
+                  <Text style={styles.checkboxLabel}>Remember me</Text>
+                </View>
 
-          <View style={styles.forgotpass}>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  color: '#3191D7',
-                  fontSize: wp(4),
-                  textAlign: 'right',
-                }}>
-                Forgotten Password?
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View>
-          <CustomButton
-            title="Login"
-            onPress={() => {
-              navigation.navigate('Subscription1');
-            }}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-              marginTop: hp(6),
-            }}>
-            <Text style={{color: 'white', fontSize: wp(4)}}>
-              Don't have an account?
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('SignUpScreen');
-              }}>
-              <Text style={{color: '#3191D7', fontSize: wp(4)}}>SIGN UP!</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+                <View style={styles.forgotpass}>
+                  <TouchableOpacity>
+                    <Text
+                      style={{
+                        color: '#3191D7',
+                        fontSize: wp(4),
+                        textAlign: 'right',
+                      }}>
+                      Forgotten Password?
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View>
+                <CustomButton title="Login" onPress={handleSubmit} />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignSelf: 'center',
+                    marginTop: hp(6),
+                  }}>
+                  <Text style={{color: 'white', fontSize: wp(4)}}>
+                    Don't have an account?
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('SignUpScreen');
+                    }}>
+                    <Text style={{color: '#3191D7', fontSize: wp(4)}}>
+                      SIGN UP!
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </>
+          )}
+        </Formik>
       </View>
     </SafeAreaView>
   );
