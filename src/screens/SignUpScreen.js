@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Text,
+  Alert,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -29,6 +30,7 @@ import Name from '../asserts/svgs/Name';
 import HeaderText from '../components/HeaderText';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import auth from '@react-native-firebase/auth'; // Add Firebase auth
 
 const SignUpScreen = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -51,6 +53,22 @@ const SignUpScreen = () => {
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Confirm Password is required'),
   });
+
+  const handleSignUp = async values => {
+    try {
+      const {email, password} = values;
+      await auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          Alert.alert('Sign in Successfully...');
+        });
+      navigation.navigate('VerificationCode');
+    } catch (error) {
+      console.error(error.message);
+      Alert.alert(error.message);
+      // Handle error accordingly, e.g., display error message to user
+    }
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -88,10 +106,7 @@ const SignUpScreen = () => {
             confirmPassword: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={values => {
-            console.log(values);
-            navigation.navigate('VerificationCode');
-          }}>
+          onSubmit={handleSignUp}>
           {({
             handleChange,
             handleBlur,

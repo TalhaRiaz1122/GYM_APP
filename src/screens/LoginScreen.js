@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Text,
+  Alert,
 } from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -28,6 +29,7 @@ import Eye from '../asserts/svgs/Eye';
 import EyeOff from '../asserts/svgs/EyeOff';
 import CustomButton from '../components/CustomButton';
 import HeaderText from '../components/HeaderText';
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -44,6 +46,21 @@ const LoginScreen = () => {
         'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character',
       ),
   });
+
+  const handleLogin = async values => {
+    try {
+      const {email, password} = values;
+      await auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          Alert.alert('Sign in Successfully...');
+        });
+      navigation.navigate('Subscription1');
+    } catch (error) {
+      console.error(error.message);
+      Alert.alert(error.message);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -75,10 +92,7 @@ const LoginScreen = () => {
         <Formik
           initialValues={{email: '', password: ''}}
           validationSchema={validationSchema}
-          onSubmit={values => {
-            console.log(values);
-            navigation.navigate('Subscription1');
-          }}>
+          onSubmit={handleLogin}>
           {({
             handleChange,
             handleBlur,
@@ -207,15 +221,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: hp(2),
   },
-  checkboxLabel: {
-    color: 'white',
-    fontSize: wp(4),
-    marginLeft: wp(1),
-  },
-  forgotpass: {
-    flex: 1,
-    marginVertical: hp(2),
-  },
   checkbox: {
     height: wp(5),
     width: wp(5),
@@ -227,7 +232,11 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     color: 'white',
     fontSize: wp(4),
-    marginLeft: wp(2),
+    marginLeft: wp(1),
+  },
+  forgotpass: {
+    flex: 1,
+    marginVertical: hp(2),
   },
 });
 export default LoginScreen;
