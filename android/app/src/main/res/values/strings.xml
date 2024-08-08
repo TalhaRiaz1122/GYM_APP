@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Gym_App</string>
+    <string name="facebook_app_id">1196080511535976</string>
+    <string name="fb_login_protocol_scheme">fb1196080511535976</string>
+    <string name="facebook_client_token">6224ba01b9088e9a9764a4126ba50b60</string>
 </resources>

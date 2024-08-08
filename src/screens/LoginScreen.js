@@ -17,8 +17,6 @@ import {
 import Logo from '../asserts/svgs/Logo';
 import SideMenu from '../asserts/svgs/SideMenu';
 import SocialButton from '../components/SocialButton';
-import Facebook from '../asserts/svgs/Facebook';
-import Google from '../asserts/svgs/Google';
 import Apple from '../asserts/svgs/Apple';
 import Or from '../asserts/svgs/Or';
 import CustomTextInput from '../components/CustomTextInput';
@@ -30,6 +28,8 @@ import EyeOff from '../asserts/svgs/EyeOff';
 import CustomButton from '../components/CustomButton';
 import HeaderText from '../components/HeaderText';
 import auth from '@react-native-firebase/auth';
+import GoogleSignInButton from '../components/GoogleSignInButton';
+import FacebookSignInButton from '../components/FacebookSignInButton';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -71,14 +71,10 @@ const LoginScreen = () => {
       <View style={styles.footer}>
         <View style={styles.iconview}>
           <View style={styles.icon}>
-            <SocialButton>
-              <Facebook width={wp(8)} height={hp(4)} />
-            </SocialButton>
+            <FacebookSignInButton />
           </View>
           <View style={styles.icon}>
-            <SocialButton style={{backgroundColor: 'white'}}>
-              <Google width={wp(8)} height={hp(4)} />
-            </SocialButton>
+            <GoogleSignInButton />
           </View>
           <View style={styles.icon}>
             <SocialButton style={{backgroundColor: 'black'}}>

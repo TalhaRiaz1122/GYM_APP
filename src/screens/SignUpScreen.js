@@ -31,6 +31,8 @@ import HeaderText from '../components/HeaderText';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import auth from '@react-native-firebase/auth'; // Add Firebase auth
+import GoogleSignInButton from '../components/GoogleSignInButton';
+import FacebookSignInButton from '../components/FacebookSignInButton';
 
 const SignUpScreen = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -66,7 +68,6 @@ const SignUpScreen = () => {
     } catch (error) {
       console.error(error.message);
       Alert.alert(error.message);
-      // Handle error accordingly, e.g., display error message to user
     }
   };
 
@@ -79,14 +80,10 @@ const SignUpScreen = () => {
       <View style={styles.footer}>
         <View style={styles.iconview}>
           <View style={styles.icon}>
-            <SocialButton>
-              <Facebook width={wp(8)} height={hp(4)} />
-            </SocialButton>
+            <FacebookSignInButton />
           </View>
           <View style={styles.icon}>
-            <SocialButton style={{backgroundColor: 'white'}}>
-              <Google width={wp(8)} height={hp(4)} />
-            </SocialButton>
+            <GoogleSignInButton />
           </View>
           <View style={styles.icon}>
             <SocialButton style={{backgroundColor: 'black'}}>

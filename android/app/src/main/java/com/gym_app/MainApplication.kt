@@ -1,4 +1,4 @@
-package com.gym_app
+package com.gym_applatest
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -21,6 +22,8 @@ import Apple from '../asserts/svgs/Apple';
 import Or from '../asserts/svgs/Or';
 import {useNavigation} from '@react-navigation/native';
 import HeaderText from '../components/HeaderText';
+import GoogleSignInButton from '../components/GoogleSignInButton';
+import FacebookSignInButton from '../components/FacebookSignInButton';
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
@@ -72,18 +75,14 @@ const WelcomeScreen = () => {
             </View>
             <View style={Style.iconview}>
               <View style={Style.icon}>
-                <SocialButton>
-                  <Facebook />
-                </SocialButton>
+                <FacebookSignInButton />
               </View>
               <View style={Style.icon}>
-                <SocialButton style={{backgroundColor: 'white'}}>
-                  <Google />
-                </SocialButton>
+                <GoogleSignInButton />
               </View>
               <View style={Style.icon}>
                 <SocialButton style={{backgroundColor: 'black'}}>
-                  <Apple />
+                  <Apple width={wp(8)} height={hp(4)} />
                 </SocialButton>
               </View>
             </View>

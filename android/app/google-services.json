@@ -1,40 +1,48 @@
 {
   "project_info": {
-    "project_number": "967049113002",
-    "project_id": "gym-app-d2c45",
-    "storage_bucket": "gym-app-d2c45.appspot.com"
+    "project_number": "937152968500",
+    "project_id": "gymapplatest-e85f9",
+    "storage_bucket": "gymapplatest-e85f9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:967049113002:android:27e648fb414649127acfd3",
+        "mobilesdk_app_id": "1:937152968500:android:15ebc4d9d83531d4abd761",
         "android_client_info": {
-          "package_name": "com.gym_app"
+          "package_name": "com.gym_applatest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "967049113002-40j1h2ee84rjbfl122jvtctoeaq35fff.apps.googleusercontent.com",
+          "client_id": "937152968500-p19j9368rl2fujn9ep7q2tsoc928qbh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gym_applatest",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "937152968500-m2pjvpqaibfnbuo8351rlb5le85rrvfg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDjSViu1xnbfeRO1tULQm2N6cOeV9Bwwb0"
+          "current_key": "AIzaSyDoHIHu5zpaKbyu9z2RmEttfkQHVIfFb6s"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "967049113002-40j1h2ee84rjbfl122jvtctoeaq35fff.apps.googleusercontent.com",
+              "client_id": "937152968500-m2pjvpqaibfnbuo8351rlb5le85rrvfg.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "967049113002-pq5gotsgl7ltcasob16iurhbtee63hrd.apps.googleusercontent.com",
+              "client_id": "937152968500-hm64bvbmcenna08o1g9a6b4kut9n8qad.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "org.reactjs.native.example.Gym-App"
+                "bundle_id": "com.gym-appLatest.Gym-App"
               }
             }
           ]
